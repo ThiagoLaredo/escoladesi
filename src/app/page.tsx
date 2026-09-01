@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 import AccordionSections from "./accordion-sections";
+import HeroRotatingPhrase from "./hero-rotating-phrase";
 import MobileMenu from "./mobile-menu";
 import ProgramsCarousel from "./programs-carousel";
 
@@ -24,7 +25,7 @@ export default function Home() {
 
       <section className="hero" aria-labelledby="hero-title">
         <h1 id="hero-title">saber de si<br /><strong>pra falar de si</strong></h1>
-        <div className="hero-bottom"><p>capacitação contínua em identidade &amp; presença online</p><b>escola de _autoconhecimento</b></div>
+        <div className="hero-bottom"><p>capacitação contínua em identidade &amp; presença online</p><HeroRotatingPhrase /></div>
       </section>
 
       <section className="manifesto" id="escola" aria-labelledby="manifesto-title">
