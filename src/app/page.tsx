@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
-import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
+import { ArrowUpRight } from "lucide-react";
 import AccordionSections from "./accordion-sections";
 import HeroRotatingPhrase from "./hero-rotating-phrase";
 import MobileMenu from "./mobile-menu";
 import ProgramsCarousel from "./programs-carousel";
+import SiteFooter from "./site-footer";
 
 const schoolLinks = ["aulas & oficinas", "vivências in company", "grupos de estudos", "ante_sala", "nossa metodologia", "nossa pesquisa"];
 
@@ -17,7 +17,7 @@ export default function Home() {
           <Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} priority />
         </Link>
         <nav aria-label="Navegacao principal">
-          <Link href="/" aria-current="page">home</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><a href="#metodologia">metodologia</a><a href="#novidades">news</a>
+          <Link href="/" aria-current="page">home</Link><Link href="/sobre">sobre</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><a href="#metodologia">metodologia</a><a href="#novidades">news</a>
         </nav>
         <a className="menu-link" href="#contato">contato</a>
         <MobileMenu />
@@ -61,8 +61,7 @@ no processo e também em como
         <div className="escola-fix-frame"><h2 id="escola-fix-title">escola_f ix</h2></div>
       </section>
 
-      <section className="newsletter" id="novidades"><h2>receba nossa newsletter</h2><p>ideias construídas coletivamente nas aulas, toda semana em seu email</p><form><label className="sr-only" htmlFor="email">Seu email</label><input id="email" type="email" placeholder="seu melhor email" /><button type="submit">enviar &#8594;</button></form></section>
-      <footer id="contato"><Link className="footer-logo" href="/" aria-label="Escoladesi - início"><Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} /></Link><div className="footer-contact"><a className="email-link" href="mailto:ola@escoladesi.com.br" aria-label="Enviar e-mail para Escoladesi"><Mail aria-hidden="true" strokeWidth={1.75} /></a><div className="social-links"><a href="https://www.instagram.com" aria-label="Instagram da Escoladesi" rel="noreferrer" target="_blank"><FaInstagram aria-hidden="true" /></a><a href="https://www.linkedin.com" aria-label="LinkedIn da Escoladesi" rel="noreferrer" target="_blank"><FaLinkedinIn aria-hidden="true" /></a></div></div><span>© 2026</span></footer>
+      <SiteFooter />
     </main>
   );
 }
