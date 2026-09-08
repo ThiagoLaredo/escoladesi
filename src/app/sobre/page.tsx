@@ -120,19 +120,16 @@ export default function SobrePage() {
       </header>
 
       <section className="sobre-hero" aria-labelledby="sobre-title">
-        <p>escola de si</p>
-        <h1 id="sobre-title">saber de si<br /><strong>pra falar de si, de dentro pra fora</strong></h1>
-      </section>
-
-      <section className="sobre-content" aria-label="Sobre a Escoladesi">
-        <p className="sobre-lead"><strong>uma escola de autoconhecimento pra comunicação pessoal.</strong></p>
-        <p className="sobre-intro">a escola de si parte da <strong>identidade</strong> como essência, estrutura <strong>ferramentas</strong> pra ação e fortalece <strong>relacionamentos</strong> significativos e tem a <strong>prática</strong> como caminho de aprendizagem; <strong>tudo com o olhar humano, criativo e cuidadoso</strong> de quem vive o que ensina e ensina o que vive.</p>
-        <div className="sobre-cards">
-          <article className="sobre-card blue"><h2>saber de si_</h2><p>é investigar identidade: quem somos, qual o tom do texto que nos traduz, nossa imagem, linguagem visual e os temas sobre os quais queremos conversar.</p></article>
-          <article className="sobre-card peach"><h2>conhecer as ferramentas_</h2><p>é aprender, e também questionar, as metodologias, formatos e canais de comunicação pessoal que fazem sentido ocupar, entendendo potencialidades e delineando métricas de sucesso particulares e individuais.</p></article>
-          <article className="sobre-card yellow"><h2>falar de si_</h2><p>é praticar uma comunicação de gente pra gente, com escuta e atenção, nutrindo não só resultados, mas o sentimento de troca honesta que nos conecta a outras pessoas de forma real.</p></article>
+        <div className="sobre-intro-content">
+          <h1 id="sobre-title">saber de si<br /><strong>pra falar de si, de dentro pra fora</strong></h1>
+          <p className="sobre-intro">a escola de si parte da <strong>identidade</strong> como essência, estrutura <strong>ferramentas</strong> pra ação e fortalece <strong>relacionamentos</strong> significativos e tem a <strong>prática</strong> como caminho de aprendizagem; <strong>tudo com o olhar humano, criativo e cuidadoso</strong> de quem vive o que ensina e ensina o que vive.</p>
+          <div className="sobre-cards">
+            <article className="sobre-card blue"><h2>saber de si_</h2><p>é investigar identidade: quem somos, qual o tom do texto que nos traduz, nossa imagem, linguagem visual e os temas sobre os quais queremos conversar.</p></article>
+            <article className="sobre-card peach"><h2>conhecer as ferramentas_</h2><p>é aprender, e também questionar, as metodologias, formatos e canais de comunicação pessoal que fazem sentido ocupar, entendendo potencialidades e delineando métricas de sucesso particulares e individuais.</p></article>
+            <article className="sobre-card yellow"><h2>falar de si_</h2><p>é praticar uma comunicação de gente pra gente, com escuta e atenção, nutrindo não só resultados, mas o sentimento de troca honesta que nos conecta a outras pessoas de forma real.</p></article>
+          </div>
+          <p className="sobre-cycle">no centro de nossa metodologia há <strong>um ciclo contínuo de prática e consciência,</strong> mirando na consistência que só é possível quando substituímos o cansaço da performance pelo contentamento da autoexpressão autêntica.</p>
         </div>
-        <p className="sobre-cycle">no centro de nossa metodologia há <strong>um ciclo contínuo de prática e consciência,</strong> mirando na consistência que só é possível quando substituímos o cansaço da performance pelo contentamento da autoexpressão autêntica.</p>
       </section>
       <section className="team-gallery" aria-label="Equipe da Escoladesi">
         <h2>quem somos</h2>

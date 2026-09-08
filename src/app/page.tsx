@@ -7,7 +7,14 @@ import MobileMenu from "./mobile-menu";
 import ProgramsCarousel from "./programs-carousel";
 import SiteFooter from "./site-footer";
 
-const schoolLinks = ["aulas & oficinas", "vivências in company", "grupos de estudos", "ante_sala", "nossa metodologia", "nossa pesquisa"];
+const schoolLinks = [
+  ["aulas & oficinas", "técnicas e questionamentos pra transformar reflexão em prática e sair com ideias testadas, com a sua cara", "#agenda"],
+  ["vivências in company", "experiências co-criadas para fortalecer cultura, pertencimento e comunicação dentro das organizações", "#contato"],
+  ["grupos de estudos", "encontros para investigar ideias, organizar repertório e aprender em companhia", "#contato"],
+  ["ante_sala", "uma comunidade para cultivar conversas, práticas e presença em ritmos possíveis", "#metodologia"],
+  ["nossa metodologia", "um ciclo contínuo de prática e consciência para falar de si com autenticidade", "#metodologia"],
+  ["nossa pesquisa", "perguntas e descobertas sobre identidade, comunicação pessoal e vida online", "#contato"],
+] as const;
 
 export default function Home() {
   return (
@@ -41,7 +48,12 @@ export default function Home() {
 
       <section className="school-nav" aria-labelledby="school-nav-title">
         <h2 id="school-nav-title">conheça a escola</h2>
-        {schoolLinks.map((link, index) => <a href={index === 3 ? "#metodologia" : "#contato"} key={link}>{link}<ArrowUpRight aria-hidden="true" /></a>)}
+        <div className="school-nav-grid">
+          {schoolLinks.map(([title, description, href]) => <a className="school-nav-card" href={href} key={title}>
+            <span className="school-nav-card-title">{title}<ArrowUpRight aria-hidden="true" /></span>
+            <span className="school-nav-card-description">{description}</span>
+          </a>)}
+        </div>
       </section>
 
       <section className="method" id="metodologia" aria-labelledby="method-title">
