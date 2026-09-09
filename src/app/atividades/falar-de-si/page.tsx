@@ -56,7 +56,7 @@ export default function FalarDeSiPage() {
       <section className="activity-hero" aria-labelledby="activity-title">
         <Image alt="" aria-hidden="true" className="activity-hero-graphic" height={576} src="/imagens/graf/grafismos-vazados-cor-8-1024x576.png" width={1024} />
         <p className="activity-format">oficina ao vivo/online</p>
-        <h1 id="activity-title">falar da gente mesma <strong>(assumir tamanho real)</strong></h1>
+        <h1 id="activity-title">falar da gente mesma (assumir tamanho real)</h1>
         <p className="activity-price">R$ 498,00</p>
         <p className="activity-intro">a gente passa anos construindo trajetória e, ainda assim, costuma travar quando precisa contar quem é, o que faz e no que acredita. uma oficina prática pra escrever, revisar e experimentar apresentações que façam sentido; e já deixando tudo prontinho: na ponta da língua e nas plataformas onde a vida acontece.</p>
         <a className="activity-cta" href={registrationUrl} rel="noopener noreferrer" target="_blank">quero participar</a>

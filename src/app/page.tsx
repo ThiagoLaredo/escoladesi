@@ -31,7 +31,7 @@ export default function Home() {
       </header>
 
       <section className="hero" aria-labelledby="hero-title">
-        <h1 id="hero-title">saber de si<br /><strong>pra falar de si</strong></h1>
+        <h1 id="hero-title">saber de si pra falar de si</h1>
         <div className="hero-bottom"><p>capacitação contínua em identidade &amp; presença online</p><HeroRotatingPhrase /></div>
       </section>
 

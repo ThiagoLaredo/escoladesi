@@ -19,7 +19,7 @@ export default function SobMedidaPage() {
 
       <section className="sob-medida-hero" aria-labelledby="sob-medida-title">
         <p>pra fazer junto</p>
-        <h1 id="sob-medida-title">sob<strong>medida_</strong></h1>
+        <h1 id="sob-medida-title">sob medida_</h1>
         <p className="sob-medida-lead"><strong>nossos conteúdos de capacitação em comunicação pessoal vêm de mais de 20 anos de experiência e das dores reais do nosso tempo, abrindo espaço para saber de si e se enxergar com clareza; sem artifícios mercadológicos que confundem pessoas em produtos.</strong></p>
         <p className="sob-medida-body">pra reconhecer quem somos, as narrativas que queremos colocar no mundo e as ferramentas disponíveis para criar formas próprias de expressão! e assim estar em conexão, construir reputação e dar forma a comunidades.</p>
         <Link className="sob-medida-contact" href="/#contato">vamos conversar</Link>

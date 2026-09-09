@@ -140,7 +140,7 @@ export default function SobrePage() {
 
       <section className="sobre-hero" aria-labelledby="sobre-title">
         <div className="sobre-intro-content">
-          <h1 id="sobre-title">saber de si<br /><strong>pra falar de si, de dentro pra fora</strong></h1>
+          <h1 id="sobre-title">saber de si pra falar de si, de dentro pra fora </h1>
           <p className="sobre-intro">a escola de si parte da <strong>identidade</strong> como essência, estrutura <strong>ferramentas</strong> pra ação e fortalece <strong>relacionamentos</strong> significativos e tem a <strong>prática</strong> como caminho de aprendizagem; <strong>tudo com o olhar humano, criativo e cuidadoso</strong> de quem vive o que ensina e ensina o que vive.</p>
           <div className="sobre-cards">
             <article className="sobre-card blue"><h2>saber de si_</h2><p>é investigar identidade: quem somos, qual o tom do texto que nos traduz, nossa imagem, linguagem visual e os temas sobre os quais queremos conversar.</p></article>
@@ -185,7 +185,6 @@ export default function SobrePage() {
       </section>
       <section className="seasonal-banner" aria-label="Programação sazonal">
         <h2>nossa programação é sazonal: <strong>um convite pra viver e aprender conforme o tempo e o ritmo da vida.</strong></h2>
-        <Link href="/#metodologia">conheça a nossa metodologia <span aria-hidden="true">↗</span></Link>
       </section>
       <SiteFooter />
     </main>

@@ -9,7 +9,7 @@
 .sobre-hero { background: var(--yellow); color: var(--blue); min-height: 48vh; padding: 38px 2vw 48px; }.sobre-hero > p { font-size: .9rem; font-weight: 900; margin: 0 0 38px; }.sobre-hero h1 { font-size: clamp(4.5rem, 10vw, 10rem); font-weight: 400; line-height: .8; margin: 0; }.sobre-hero h1 strong { font-weight: 900; }.sobre-content { padding: 82px 2vw; }.sobre-lead { color: var(--red); font-size: clamp(2rem, 4vw, 4.5rem); line-height: 1; margin: 0 0 62px; max-width: 940px; }.sobre-intro { font-size: 1.15rem; line-height: 1.35; margin: 0 0 52px; max-width: 900px; }.sobre-cards { display: grid; gap: 18px; grid-template-columns: repeat(3, minmax(0, 1fr)); }.sobre-card { display: flex; flex-direction: column; min-height: 310px; padding: 28px 24px; }.sobre-card.blue { background: var(--blue); color: white; }.sobre-card.peach { background: var(--peach); color: white; }.sobre-card.yellow { background: var(--yellow); color: var(--blue); }.sobre-card h2 { font-size: clamp(1.8rem, 2.7vw, 3.2rem); font-weight: 900; line-height: .95; margin: 0; }.sobre-card p { font-size: .95rem; line-height: 1.3; margin: auto 0 0; }.sobre-cycle { font-size: 1.15rem; line-height: 1.35; margin: 52px 0 0; max-width: 900px; }.team-gallery { padding: 0 2vw 90px; }.team-gallery h2 { color: var(--red); font-size: clamp(3.2rem, 6.4vw, 6.8rem); font-weight: 900; line-height: .85; margin: 0 0 48px; }.team-grid { display: grid; gap: 20px; grid-template-columns: repeat(6, minmax(0, 1fr)); }.team-card { background: #d5d5cf; display: flex; flex-direction: column; }.team-photo { aspect-ratio: 3 / 4; background: var(--blue); object-fit: cover; width: 100%; }.team-card-body { display: flex; flex: 1; flex-direction: column; padding: 16px 18px 20px; }.team-card h3 { font-size: 1.25rem; font-weight: 600; margin: 0 0 6px; text-transform: lowercase; }.team-card p { font-size: .85rem; line-height: 1.3; margin: 0 0 auto; }.team-links { display: flex; gap: 10px; margin-top: 14px; }.team-links a { align-items: center; color: var(--red); display: flex; height: 22px; justify-content: center; width: 22px; }.team-links a:hover { color: var(--blue); }.team-links svg { height: 20px; width: 20px; }.seasonal-banner { align-items: center; background: var(--red); color: white; display: flex; min-height: 100vh; padding: 56px 2vw; }.seasonal-banner h2 { font-size: clamp(2rem, 4vw, 4.8rem); font-weight: 400; line-height: .95; margin: 0; max-width: 900px; }.seasonal-banner h2 strong { font-weight: 900; }
 .manifesto { padding: 85px 2vw 90px; }.manifesto h2, .school-nav > h2, .method h2 { color: var(--red); font-size: clamp(3.2rem, 6.4vw, 6.8rem); font-weight: 900; letter-spacing: 0; line-height: .85; margin: 0 0 60px; }.manifesto h2 { font-weight: 400; }.manifesto h2 strong, .manifesto-columns strong { font-weight: 900; }.manifesto-columns { display: grid; gap: 48px; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1050px; }.manifesto-columns p { font-size: 1.05rem; line-height: 1.35; margin: 0; }
 .programs { overflow: hidden; padding: 0 2vw 90px; }.program-track { display: grid; gap: 26px; grid-template-columns: repeat(4, 1fr); }.program-card { display: flex; flex-direction: column; min-height: 295px; padding: 26px 20px 18px; }.program-card.blue { background: var(--blue); color: white; }.program-card.peach { background: var(--peach); color: white; }.program-card.yellow { background: var(--yellow); color: white; }.program-card h2 { font-size: clamp(2rem, 3.4vw, 3.8rem); font-weight: 400; line-height: .9; margin: 0; }.program-card h2 span { display: block; }.program-card p { font-size: .82rem; line-height: 1.15; margin: auto 0 18px; max-width: 200px; }.program-card a, .method a { align-self: end; background: #d5d5cf; border-radius: 16px; color: var(--blue); font-size: .72rem; padding: 5px 16px; }.program-card a { transition: background-color 180ms ease, color 180ms ease, transform 180ms ease; }.program-card a:hover { background: white; color: var(--red); transform: translateY(-2px); }.program-controls { display: none; }
-.school-nav > h2 { padding: 0 2vw; }.school-nav a { align-items: center; border-top: 1px solid var(--line); display: flex; font-size: clamp(2rem, 3.6vw, 4rem); justify-content: space-between; min-height: 96px; padding: 17px 2vw; }.school-nav a:nth-of-type(even) { background: var(--red); }.school-nav a:hover { background: #d5d5cf; }.school-nav a svg { color: var(--red); flex: 0 0 auto; height: .7em; stroke-width: 2.25; width: .7em; }.school-nav a:nth-of-type(even) svg { color: white; }.school-nav a:hover svg { color: var(--red); }
+.school-nav > h2 { padding: 0 2vw; }.school-nav a { align-items: center; border-top: 1px solid var(--line); display: flex; font-size: clamp(2rem, 3.6vw, 4rem); justify-content: space-between; min-height: 96px; padding: 17px 2vw; }.school-nav a:nth-of-type(even) { background: var(--red); color: white; }.school-nav a:hover { background: #d5d5cf; color: #090909; }.school-nav a svg, .school-nav a:hover svg { color: #090909; flex: 0 0 auto; height: .7em; stroke-width: 2.25; width: .7em; }.school-nav a:nth-of-type(even) svg { color: white; }
 .method { border-bottom: 1px solid var(--line); display: grid; gap: 5vw; grid-template-columns: 1fr 1fr; padding: 100px 2vw; }.method h2 { margin-bottom: 42px; }.method p { font-size: 1.08rem; line-height: 1.35; max-width: 345px; }.method a { background: var(--blue); border-radius: 28px; color: #d5d5cf; display: inline-block; font-size: 1rem; margin-top: 28px; padding: 10px 24px; transition: background-color 180ms ease, color 180ms ease, transform 180ms ease; }.method a:hover { background: #d5d5cf; color: var(--blue); transform: translateY(-2px); }.method-diagram { display: block; height: auto; margin: auto; max-width: 460px; width: min(38vw, 460px); }
 .accordions > button { align-items: center; background: var(--paper); border: 0; border-bottom: 1px solid var(--line); color: #111; cursor: pointer; display: flex; font-size: clamp(2rem, 3.6vw, 4rem); justify-content: space-between; padding: 28px 2vw; text-align: left; transition: background-color 180ms ease; width: 100%; }.accordions > button:hover { background: #d5d5cf; }.accordions > button svg { flex: 0 0 auto; height: .8em; transition: transform 180ms ease; width: .8em; }.accordions > button[aria-expanded="true"] svg { transform: rotate(180deg); }.accordion-content { background: var(--paper); border-bottom: 1px solid var(--line); padding: 28px 2vw 42px; }.partner-logos { display: grid; gap: 12px; grid-template-columns: repeat(6, 1fr); }.partner-logos span { align-items: center; border: 1px solid var(--line); display: flex; font-size: clamp(1.15rem, 2.2vw, 2.4rem); font-weight: 900; justify-content: center; min-height: 120px; padding: 16px; text-align: center; }.partner-logos span:nth-child(odd) { color: var(--red); }.testimonial-carousel { align-items: center; background: #d5d5cf; border-radius: 28px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; min-height: 260px; padding: 24px; }.testimonial-carousel figure { margin: 0; padding: 24px 5vw; text-align: center; }.testimonial-carousel blockquote { color: var(--red); font-size: clamp(1.5rem, 3vw, 3.2rem); font-weight: 900; line-height: 1; margin: 0; }.testimonial-carousel figcaption { font-size: .9rem; margin-top: 20px; }.carousel-control { align-items: center; background: transparent; border: 0; color: var(--red); cursor: pointer; display: flex; height: 48px; justify-content: center; padding: 0; width: 48px; }.carousel-control svg { height: 100%; width: 100%; }.carousel-count { color: var(--red); font-size: .85rem; margin: 16px 0 0; text-align: center; }
 .escola-fix { padding: 56px 2vw; }.escola-fix-frame { align-items: center; background: #d5d5cf; border-radius: 28px; display: flex; justify-content: center; min-height: 240px; padding: 32px; }.escola-fix-frame h2 { color: var(--red); font-size: clamp(3rem, 7vw, 7rem); font-weight: 900; line-height: .9; margin: 0; text-align: center; }
@@ -31,7 +31,7 @@
 .timeline-slides { display: flex; transition: transform 420ms cubic-bezier(.22, .61, .36, 1); touch-action: pan-y; }
 .timeline-slide { background: #d5d5cf; border-left: 6px solid var(--blue); flex: 0 0 25%; min-height: 250px; padding: 24px 20px 28px; }
 .timeline-year { color: var(--red); font-size: clamp(.9rem, 1.4vw, 1.15rem); font-weight: 900; letter-spacing: .08em; margin: 0 0 22px; }
-.timeline-slide h3 { color: var(--blue); font-family: var(--font-display), serif; font-size: clamp(1rem, 1.6vw, 1.8rem); font-weight: 400; line-height: .95; margin: 0 0 18px; max-width: 720px; }
+.timeline-slide h3 { color: var(--blue); font-family: var(--font-sans), sans-serif; font-size: clamp(.95rem, 1.4vw, 1.6rem); font-weight: 600; line-height: .95; margin: 0 0 18px; max-width: 720px; }
 .timeline-slide h3::after { color: var(--red); content: "↗"; display: inline-block; font-family: var(--font-sans), sans-serif; font-size: .45em; margin-left: 10px; transform: translateY(-.18em); }
 .timeline-slide > p:last-child { font-size: clamp(.82rem, 1vw, .98rem); line-height: 1.4; margin: 0; max-width: 660px; }
 .timeline-controls { align-items: center; display: flex; gap: 20px; justify-content: space-between; padding-top: 22px; }
@@ -53,9 +53,9 @@
 	.section-kicker { margin-bottom: 20px; }
 	.trajectory h2 { font-size: clamp(2.6rem, 12vw, 3.8rem); margin-bottom: 0; }
 	.trajectory-lead { font-size: 1rem; }
-	.timeline-slide { flex-basis: 100%; min-height: 285px; padding: 28px 22px 32px; }
+	.timeline-slide { flex-basis: 100%; min-height: 285px; min-width: 100%; padding: 28px 22px 32px; }
 	.timeline-year { margin-bottom: 34px; }
-	.timeline-slide h3 { font-size: clamp(1.2rem, 5.5vw, 1.8rem); }
+	.timeline-slide h3 { font-size: clamp(1.1rem, 5vw, 1.6rem); }
 	.timeline-controls { gap: 12px; }
 }
 
@@ -218,6 +218,7 @@ body { font-size: .92rem; }
 .sob-medida-hero h1 { font-size: clamp(2.7rem, 5vw, 5rem); line-height: 1; }
 .sobre-hero h1 { font-size: clamp(2.4rem, 4.2vw, 4.2rem); line-height: 1; }
 .activity-hero h1 { font-size: clamp(2.1rem, 4vw, 3.9rem); line-height: 1; }
+.manifesto h2, .school-nav > h2, .method h2, .escola-fix-frame h2 { font-size: clamp(2rem, 3.8vw, 3.6rem); }
 
 .team-gallery h2, .trajectory h2 { color: var(--red); font-family: var(--font-sans), sans-serif; font-size: clamp(2rem, 3.8vw, 3.6rem); font-weight: 900; line-height: .85; }
 .trajectory { color: #090909; }
@@ -230,6 +231,7 @@ body { font-size: .92rem; }
 .timeline-arrow:hover { background: var(--red); color: white; }
 .sobre-hero { background: var(--red); color: white; }
 .sobre-hero h1, .sobre-hero h1 strong { color: white; }
+.hero h1, .sob-medida-hero h1, .sobre-hero h1, .activity-hero h1 { font-weight: 900; }
 .sobre-intro-content .sobre-intro, .sobre-intro-content .sobre-cycle { color: white; }
 .sobre-card, .sobre-card.blue, .sobre-card.peach, .sobre-card.yellow { background: #d5d5cf; border-color: var(--line); color: var(--blue); }
 .sobre-card p { color: var(--blue); }
@@ -253,6 +255,7 @@ body { font-size: .92rem; }
 	.sob-medida-hero h1 { font-size: clamp(2.5rem, 11vw, 3.9rem); }
 	.sobre-hero h1 { font-size: clamp(2.3rem, 9.5vw, 3.3rem); }
 	.activity-hero h1 { font-size: clamp(1.8rem, 6.5vw, 2.5rem); }
+	.manifesto h2, .school-nav > h2, .method h2, .escola-fix-frame h2 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
 	.team-gallery h2, .trajectory h2 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
 	.team-gallery { padding-top: 56px; }
 	.seasonal-banner { gap: 16px; min-height: 42vh; padding: 24px 24px; }
@@ -262,13 +265,13 @@ body { font-size: .92rem; }
 	.topbar .mobile-menu-panel { border-bottom-width: 1px; }
 }
 .school-nav-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0 clamp(32px, 7vw, 112px); width: 100%; }
-.school-nav-card { align-items: stretch; background: var(--paper); border: 1px solid var(--blue); color: #090909; display: flex; flex-direction: column; min-height: 168px; padding: 22px 24px 20px; transition: background-color 180ms ease, color 180ms ease; }
+.school-nav-card { align-items: stretch; background: var(--paper); border: 1px solid var(--line); color: #090909; display: flex; flex-direction: column; min-height: 168px; padding: 22px 24px 20px; transition: background-color 180ms ease, color 180ms ease; }
 .school-nav-card:hover { background: var(--yellow); color: #090909; }
 .school-nav-card-title { align-items: center; display: flex; font-size: clamp(1.25rem, 1.8vw, 2rem); justify-content: space-between; line-height: 1; }
 .school-nav-card-title svg { color: var(--red); height: 1em; width: 1em; }
-.school-nav-card:hover .school-nav-card-title svg { color: white; }
+.school-nav-card:hover .school-nav-card-title svg { color: #090909; }
 .school-nav-card-description { font-size: .82rem; font-weight: 300; line-height: 1.45; margin-top: auto; max-width: 480px; }
-.school-nav .school-nav-card { align-items: stretch; border: 1px solid var(--blue); color: #090909; font-size: inherit; justify-content: initial; min-height: 168px; padding: 22px 24px 20px; }
+.school-nav .school-nav-card { align-items: stretch; border: 1px solid var(--line); color: #090909; font-size: inherit; justify-content: initial; min-height: 168px; padding: 22px 24px 20px; }
 @media (max-width: 760px) {
 	.school-nav-grid { display: block; }
 	.school-nav-grid { padding-left: 24px; padding-right: 24px; }
@@ -277,3 +280,6 @@ body { font-size: .92rem; }
 	.school-nav-card-title { font-size: 1.25rem; }
 	.school-nav-card-description { font-size: .78rem; }
 }
+
+	.hero { justify-content: center; }
+	.hero-bottom { gap: 18px; margin-top: 24px; }
