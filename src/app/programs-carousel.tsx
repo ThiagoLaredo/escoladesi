@@ -33,7 +33,8 @@ export default function ProgramsCarousel() {
   };
 
   return (
-    <section className="programs" id="programas" aria-label="Programas da Escoladesi">
+    <section className="programs" id="agenda" aria-labelledby="programs-title">
+      <h2 id="programs-title">próximas atividades</h2>
       <div
         className="program-track"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}

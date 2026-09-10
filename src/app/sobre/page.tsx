@@ -132,7 +132,7 @@ export default function SobrePage() {
           <Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} priority />
         </Link>
         <nav aria-label="Navegação principal">
-          <Link href="/">home</Link><Link aria-current="page" href="/sobre">sobre</Link><Link href="/#agenda">agenda</Link><Link href="/#pesquisa">pesquisa</Link><Link href="/sob-medida">sob medida</Link><Link href="/#metodologia">metodologia</Link><Link href="/#novidades">news</Link>
+          <Link href="/">home</Link><Link aria-current="page" href="/sobre">sobre</Link><Link href="/#agenda">agenda</Link><Link href="/#pesquisa">pesquisa</Link><Link href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><Link href="/#novidades">news</Link>
         </nav>
         <Link className="menu-link" href="/#contato">contato</Link>
         <MobileMenu activeLabel="sobre" />

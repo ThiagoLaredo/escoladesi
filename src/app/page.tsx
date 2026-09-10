@@ -24,7 +24,7 @@ export default function Home() {
           <Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} priority />
         </Link>
         <nav aria-label="Navegacao principal">
-          <Link href="/" aria-current="page">home</Link><Link href="/sobre">sobre</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><a href="#metodologia">metodologia</a><a href="#novidades">news</a>
+          <Link href="/" aria-current="page">home</Link><Link href="/sobre">sobre</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><a href="#novidades">news</a>
         </nav>
         <a className="menu-link" href="#contato">contato</a>
         <MobileMenu />

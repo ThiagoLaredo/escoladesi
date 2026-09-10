@@ -11,7 +11,7 @@ const navigationItems = [
   { href: "#agenda", label: "agenda" },
   { href: "#pesquisa", label: "pesquisa" },
   { href: "/sob-medida", label: "sob medida" },
-  { href: "#metodologia", label: "metodologia" },
+  { href: "/metodologia", label: "metodologia" },
   { href: "#novidades", label: "news" },
   { href: "#contato", label: "contato" },
 ];
