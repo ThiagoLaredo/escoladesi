@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
 
 const programs = [
-  ["grupo\n_de estudo", "encontros mensais pra conhecer gente interessante e seus jeitos de organizar a vida, o trabalho e sua comunicação.", "blue", "#contato"],
+  ["grupo\n_de estudo", "encontros mensais pra conhecer gente interessante e seus jeitos de organizar a vida, o trabalho e sua comunicação.", "blue", "/atividades/grupo-de-estudo"],
   ["oficina\nfalar _de si", "uma oficina online prática pra escrever, revisar e experimentar apresentações que façam sentido.", "peach", "/atividades/falar-de-si"],
   ["vender sem\nse vender_", "uma aula online prática e também reflexiva sobre comunicar o que você faz de um jeito interessante, confiável e humano.", "blue", "#contato"],
   ["escola\n_offline", "uma vivência que vira repertório e que pode sacudir nossas práticas de comunicação SIM!", "yellow", "#contato"],
