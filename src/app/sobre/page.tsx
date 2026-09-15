@@ -5,6 +5,7 @@ import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 import MobileMenu from "../mobile-menu";
 import SiteFooter from "../site-footer";
 import TimelineCarousel, { type TimelineItem } from "../timeline-carousel";
+import TeamCarousel from "../team-carousel";
 
 type TeamLink = { type: "instagram" | "linkedin" | "site"; url: string };
 type TeamMember = { name: string; role: string; image: string; links: TeamLink[] };
@@ -104,8 +105,6 @@ const team: TeamMember[] = [
   },
 ];
 
-const teamLinkIcon = { instagram: FaInstagram, linkedin: FaLinkedinIn, site: Globe };
-
 const timeline: TimelineItem[] = [
   { year: "2001", title: "o começo", text: "início do trabalho com autoexpressão e construção de narrativas através da moda." },
   { year: "2003", title: "oficina de estilo", text: "criação e direção da Oficina de Estilo, empresa pioneira em consultoria de imagem no Brasil, com mais de 300 clientes individuais atendidos entre 2003 e 2017." },
@@ -152,29 +151,7 @@ export default function SobrePage() {
       </section>
       <section className="team-gallery" aria-label="Equipe da Escoladesi">
         <h2>quem somos</h2>
-        <div className="team-grid">
-          {team.map((member) => (
-            <article className="team-card" key={member.name}>
-              <Image alt={member.name} className="team-photo" height={400} src={encodeURI(member.image)} width={300} />
-              <div className="team-card-body">
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
-                {member.links.length > 0 && (
-                  <div className="team-links">
-                    {member.links.map((link) => {
-                      const Icon = teamLinkIcon[link.type];
-                      return (
-                        <a aria-label={`${member.name} - ${link.type}`} href={link.url} key={link.url} rel="noopener noreferrer" target="_blank">
-                          <Icon aria-hidden="true" />
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
+        <TeamCarousel team={team} />
       </section>
       <section className="trajectory" aria-labelledby="trajectory-title">
         <div className="trajectory-intro">
@@ -185,6 +162,7 @@ export default function SobrePage() {
       </section>
       <section className="seasonal-banner" aria-label="Programação sazonal">
         <h2>nossa programação é sazonal: <strong>um convite pra viver e aprender conforme o tempo e o ritmo da vida.</strong></h2>
+        <Link href="/#agenda">ver próximas atividades <span>↗</span></Link>
       </section>
       <SiteFooter />
     </main>
