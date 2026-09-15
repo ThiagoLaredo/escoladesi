@@ -45,6 +45,37 @@ export default function MetodologiaPage() {
         </div>
       </section>
 
+      <section className="pillars-section transversal-section" aria-labelledby="transversal-title">
+        <h2 id="transversal-title">pilar transversal</h2>
+        <article className="pillar-card transversal-card">
+          <h3>_prática (falar de si)</h3>
+          <p>transformar teoria em movimento; fazer consciente, aprender fazendo, ajustar no caminho e seguir, porque é praticando que tudo se integra e amadurece (a prática melhora todas as práticas!).</p>
+        </article>
+      </section>
+
+      <section className="pillars-section dimensions-section" aria-labelledby="dimensions-title">
+        <h2 id="dimensions-title">dimensões que contornam tudo</h2>
+        <div className="pillars-grid">
+          <article className="pillar-card">
+            <h3>_humanidade</h3>
+            <p>reconexão com o sentir, com nossos limites e atributos mais naturais, com a empatia e com o tempo humano, tendo o coração como ponte entre pensar e agir.</p>
+          </article>
+          <article className="pillar-card">
+            <h3>_criatividade</h3>
+            <p>experimentação e recombinação de repertórios que dão permissão pra desenvolver olhar autoral e inventar novos trabalhos, soluções ou produtos, do zero.</p>
+          </article>
+          <article className="pillar-card">
+            <h3>_bem-estar</h3>
+            <p>convite à atenção consigo, à autonomia e à celebração: produzir e comunicar bem é também cuidar de si.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="methodology-cta" aria-label="Convite para co-criação">
+        <p>quer compartilhar saberes em nossa escola? vem co-criar com a gente!</p>
+        <Link href="/#contato">clica aqui ;)</Link>
+      </section>
+
       <SiteFooter />
     </main>
   );
