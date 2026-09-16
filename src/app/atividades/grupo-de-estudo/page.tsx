@@ -80,7 +80,7 @@ export default function GrupoDeEstudoPage() {
       </section>
 
       <section className="activity-section highlight" aria-label="Programação">
-        <h2>programação</h2>
+        <h2>_programação</h2>
         <p className="activity-schedule-dates">15, 22 e 29 de setembro, terças-feiras</p>
         <p>de 19h30 às 21h</p>
         <p>online/ao vivo via zoom — o link chega por email na confirmação da matrícula :)</p>
@@ -89,35 +89,57 @@ export default function GrupoDeEstudoPage() {
 
       <section className="activity-section" aria-label="Pra quem">
         <h2>_pra quem</h2>
-        <ul className="activity-list">
+        <ul className="activity-list activity-card-list">
           {forWhom.map((item) => <li key={item}>{item}</li>)}
         </ul>
       </section>
 
       <section className="activity-section" aria-label="Como é">
         <h2>_como é</h2>
-        <p>uma oficina prática de escrita, reflexão e inteligência coletiva :) ao longo de 3 encontros vamos organizar quem a gente é e quem vem sendo :) pra construir apresentações prontas pra usar em diferentes contextos da vida: instagram, linkedin, site, newsletter, palestras, propostas, apresentações em eventos e conversas do dia a dia.</p>
-        <p>partindo da metodologia da escola de si, vamos transformar uma tarefa que costuma ficar esquecida na lista de pendências em um processo acompanhado, com potencial pra boas conversas e muita mão na massa. a ideia é aproveitar esse tempo juntas pra rascunhar, revisar, ouvir feedback de gente tão interessante quanto a gente mesma, adaptar e já atualizar nossas bios/perfis nas plataformas que fazem sentido pra cada uma de nós, saindo da oficina com essa parte da comunicação resolvida (que alíviooooooo!).</p>
+        <div className="activity-copy-cards">
+          <article className="activity-copy-card">
+            <h3>estrutura da experiência</h3>
+            <p>uma oficina prática de escrita, reflexão e inteligência coletiva. ao longo de 3 encontros, a gente organiza quem é e quem vem sendo pra construir apresentações prontas pra usar no instagram, linkedin, site, newsletter, palestras, propostas e conversas do dia a dia.</p>
+          </article>
+          <article className="activity-copy-card">
+            <h3>resultado no fim da oficina</h3>
+            <p>uma tarefa que costuma ficar esquecida vira processo acompanhado, com mão na massa e feedback real. você sai com bios e apresentações revisadas, adaptadas e atualizadas nas plataformas que fazem sentido pra sua vida e trabalho.</p>
+          </article>
+        </div>
       </section>
 
       <section className="activity-section" aria-label="Ao longo da oficina, vamos">
         <h2>_ao longo da oficina, vamos</h2>
-        <ul className="activity-list">
+        <ul className="activity-list activity-card-list">
           {alongTheWay.map((item) => <li key={item}>{item}</li>)}
         </ul>
       </section>
 
       <section className="activity-section" aria-label="Por que essa oficina existe">
         <h2>_por que essa oficina existe</h2>
-        <p>porque quase todo mundo passa aaaanos construindo uma trajetória e poucos minutos tentando explicar quem é e o que faz :\</p>
-        <p>na pressa, a gente acaba copiando fórmulas, acumulando versões diferentes dessas apresentações ou simplesmente deixando espaços em branco esperando inspiração aparecer.</p>
-        <p>essa oficina existe pra gente se reconhecer no próprio tamanho: sem precisar se aumentar, mas também sem se diminuir! &lt;3</p>
-        <p>e pra transformar uma tarefa que costuma gerar ansiedade num processo prático, de fazer com atenção (e de fazer coletivamente! ouvindo outras experiências pra crescer na nossa). porque ter na ponta da língua quem a gente é, assim com confiança, continua sendo uma das formas mais importantes da gente se disponibilizar pra se conectar, colaborar, criar coisas junto, crescer, brilhar \o/</p>
+        <div className="activity-copy-cards">
+          <article className="activity-copy-card">
+            <h3>o problema real</h3>
+            <p>quase todo mundo passa anos construindo trajetória e poucos minutos tentando explicar quem é e o que faz.</p>
+          </article>
+          <article className="activity-copy-card">
+            <h3>o que acontece na pressa</h3>
+            <p>a gente copia fórmulas, acumula versões diferentes dessas apresentações ou deixa espaços em branco esperando inspiração aparecer.</p>
+          </article>
+          <article className="activity-copy-card">
+            <h3>o que essa oficina propõe</h3>
+            <p>se reconhecer no próprio tamanho: sem precisar se aumentar, mas também sem se diminuir.</p>
+          </article>
+          <article className="activity-copy-card">
+            <h3>por que isso importa</h3>
+            <p>transformar ansiedade em processo prático e coletivo. ter na ponta da língua quem você é ajuda a se conectar, colaborar, criar junto e abrir novas oportunidades.</p>
+          </article>
+        </div>
       </section>
 
       <section className="activity-section" aria-label="O que você leva dessa experiência">
         <h2>_o que você leva dessa experiência</h2>
-        <ul className="activity-list">
+        <ul className="activity-list activity-card-list">
           {takeaways.map((item) => <li key={item}>{item}</li>)}
         </ul>
         <a className="activity-cta" href={registrationUrl} rel="noopener noreferrer" target="_blank">quero participar</a>
@@ -125,9 +147,14 @@ export default function GrupoDeEstudoPage() {
 
       <section className="activity-section" aria-label="Cancelamentos e reembolsos">
         <h2>_cancelamentos e reembolsos</h2>
-        <p>seguimos a legislação brasileira pra compras online + nosso jeito cuidadoso de organizar as aulas:</p>
-        <p>em cancelamentos até 10 dias antes do encontro devolvemos 100% do valor pago.</p>
-        <p>em cancelamentos nos 10 dias anteriores à aula não fazemos reembolso, mas é possível ceder sua vaga para uma amiga. pedimos que avise o quanto antes em <a href="mailto:ola@escoladesi.com.br">ola@escoladesi.com.br</a> pra reorganização interna e envio de link/orientações pra nova participante.</p>
+        <details className="activity-disclosure">
+          <summary>clique para ver política de cancelamento e reembolso</summary>
+          <div className="activity-disclosure-body">
+            <p>seguimos a legislação brasileira pra compras online + nosso jeito cuidadoso de organizar as aulas:</p>
+            <p>em cancelamentos até 10 dias antes do encontro devolvemos 100% do valor pago.</p>
+            <p>em cancelamentos nos 10 dias anteriores à aula não fazemos reembolso, mas é possível ceder sua vaga para uma amiga. pedimos que avise o quanto antes em <a href="mailto:ola@escoladesi.com.br">ola@escoladesi.com.br</a> pra reorganização interna e envio de link/orientações pra nova participante.</p>
+          </div>
+        </details>
       </section>
 
       <section className="activity-section" aria-label="Dúvidas">
