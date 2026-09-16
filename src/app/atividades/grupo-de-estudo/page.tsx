@@ -62,30 +62,32 @@ export default function GrupoDeEstudoPage() {
         <a className="activity-cta" href={registrationUrl} rel="noopener noreferrer" target="_blank">quero participar</a>
       </section>
 
-      <section className="activity-section" aria-label="Com quem">
-        <h2>_com quem</h2>
-        <div className="activity-speaker">
-          <div className="activity-speaker-profile">
-            <Image alt="Fernanda Resende" className="activity-speaker-photo" height={220} src="/imagens/team/fefe resende.jpg" width={220} />
-            <span className="activity-speaker-name">fefe resende</span>
-          </div>
-          <div className="activity-speaker-copy">
-            <p>fefe resende trabalha há mais de 20 anos com identidade e autoexpressão. criou metodologias em consultoria de imagem, formou centenas de profissionais e vem desenvolvendo sistemas práticos que transformam intenção em ação e organizam vida, trabalho e comunicação como partes do mesmo campo. autora de gente &gt; internet e outros 4 livros, tem formações em antroposofia, semiótica e relações humanas.</p>
-            <div className="activity-social-links">
-              <a aria-label="LinkedIn de fefe resende" href="https://www.linkedin.com/in/feferesende/" rel="noopener noreferrer" target="_blank"><FaLinkedinIn aria-hidden="true" /></a>
-              <a aria-label="Instagram de fefe resende" href="https://www.instagram.com/feferesende/" rel="noopener noreferrer" target="_blank"><FaInstagram aria-hidden="true" /></a>
+      <div className="activity-feature-grid">
+        <section className="activity-section" aria-label="Com quem">
+          <h2>_com quem</h2>
+          <div className="activity-speaker">
+            <div className="activity-speaker-profile">
+              <Image alt="Fernanda Resende" className="activity-speaker-photo" height={220} src="/imagens/team/fefe resende.jpg" width={220} />
+              <span className="activity-speaker-name">fefe resende</span>
+            </div>
+            <div className="activity-speaker-copy">
+              <p>fefe resende trabalha há mais de 20 anos com identidade e autoexpressão. criou metodologias em consultoria de imagem, formou centenas de profissionais e vem desenvolvendo sistemas práticos que transformam intenção em ação e organizam vida, trabalho e comunicação como partes do mesmo campo. autora de gente &gt; internet e outros 4 livros, tem formações em antroposofia, semiótica e relações humanas.</p>
+              <div className="activity-social-links">
+                <a aria-label="LinkedIn de fefe resende" href="https://www.linkedin.com/in/feferesende/" rel="noopener noreferrer" target="_blank"><FaLinkedinIn aria-hidden="true" /></a>
+                <a aria-label="Instagram de fefe resende" href="https://www.instagram.com/feferesende/" rel="noopener noreferrer" target="_blank"><FaInstagram aria-hidden="true" /></a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="activity-section highlight" aria-label="Programação">
-        <h2>_programação</h2>
-        <p className="activity-schedule-dates">15, 22 e 29 de setembro, terças-feiras</p>
-        <p>de 19h30 às 21h</p>
-        <p>online/ao vivo via zoom — o link chega por email na confirmação da matrícula :)</p>
-        <a className="activity-cta" href={registrationUrl} rel="noopener noreferrer" target="_blank">quero participar</a>
-      </section>
+        <section className="activity-section highlight" aria-label="Programação">
+          <h2>_programação</h2>
+          <p className="activity-schedule-dates">15, 22 e 29 de setembro, terças-feiras</p>
+          <p>de 19h30 às 21h</p>
+          <p>online/ao vivo via zoom — o link chega por email na confirmação da matrícula :)</p>
+          <a className="activity-cta" href={registrationUrl} rel="noopener noreferrer" target="_blank">quero participar</a>
+        </section>
+      </div>
 
       <section className="activity-section" aria-label="Pra quem">
         <h2>_pra quem</h2>

@@ -6,6 +6,7 @@ import HeroRotatingPhrase from "./hero-rotating-phrase";
 import MobileMenu from "./mobile-menu";
 import ProgramsCarousel from "./programs-carousel";
 import SiteFooter from "./site-footer";
+import { getPrograms } from "../lib/contentful";
 
 const schoolLinks = [
   ["aulas & oficinas", "técnicas e questionamentos pra transformar reflexão em prática e sair com ideias testadas, com a sua cara", "#agenda"],
@@ -16,7 +17,9 @@ const schoolLinks = [
   ["nossa pesquisa", "perguntas e descobertas sobre identidade, comunicação pessoal e vida online", "#contato"],
 ] as const;
 
-export default function Home() {
+export default async function Home() {
+  const programs = await getPrograms();
+
   return (
     <main>
       <header className="topbar">
@@ -44,7 +47,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ProgramsCarousel />
+      <ProgramsCarousel programs={programs} />
 
       <section className="school-nav" aria-labelledby="school-nav-title">
         <h2 id="school-nav-title">conheça a escola</h2>
