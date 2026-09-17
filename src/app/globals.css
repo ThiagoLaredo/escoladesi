@@ -451,6 +451,37 @@ body { padding-top: var(--topbar-height-desktop); }
 }
 
 /* Grupo de estudo: leitura e conversao */
+.activity-page .activity-hero {
+	background: #111;
+	min-height: 100vh;
+	min-height: 100svh;
+	padding: 70px clamp(32px, 7vw, 112px);
+	position: relative;
+}
+
+.activity-page .activity-hero::before {
+	background: linear-gradient(180deg, rgba(9, 9, 9, .18) 0%, rgba(9, 9, 9, .64) 78%);
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+
+.activity-page .activity-hero-graphic {
+	height: 100% !important;
+	inset: 0;
+	object-fit: cover;
+	opacity: 1;
+	position: absolute;
+	width: 100% !important;
+	z-index: 0;
+}
+
+.activity-page .activity-hero > :not(.activity-hero-graphic) {
+	position: relative;
+	z-index: 2;
+}
+
 .activity-page .activity-section {
 	border-bottom: 0;
 }
@@ -478,10 +509,6 @@ body { padding-top: var(--topbar-height-desktop); }
 
 .activity-page .activity-section:not(.highlight) {
 	background: #fffefd;
-}
-
-.activity-page .activity-section:not(.highlight):nth-of-type(n+5):nth-of-type(odd) {
-	background: #efefea;
 }
 
 .activity-card-list {
@@ -590,7 +617,7 @@ body { padding-top: var(--topbar-height-desktop); }
 	}
 
 	.activity-feature-grid .activity-section:first-child {
-		border-bottom: 1px solid var(--line);
+		border-bottom: 0;
 	}
 
 	.activity-card-list,
@@ -603,5 +630,9 @@ body { padding-top: var(--topbar-height-desktop); }
 		margin-left: auto;
 		margin-right: auto;
 		width: fit-content;
+	}
+
+	.activity-page .activity-hero {
+		padding: 42px 24px 48px;
 	}
 }
