@@ -40,9 +40,13 @@ export default async function ActivityPageBySlug({ params }: ActivityRouteProps)
 
   const introParagraphs = splitParagraphs(page.introducao);
   const programInfoParagraphs = splitParagraphs(page.informacoesProgramacao);
-  const cancellationParagraphs = splitParagraphs(page.politicaCancelamento);
-  const doubtParagraphs = splitParagraphs(page.textoDuvidas);
   const contactEmail = page.emailContato?.trim() || "ola@escoladesi.com.br";
+  const cancellationParagraphs = splitParagraphs(page.politicaCancelamento);
+  const finalCancellationParagraphs = cancellationParagraphs.length > 0
+    ? cancellationParagraphs
+    : ["Cancele sua participação com antecedência e, se necessário, a gente conversa sobre reembolso ou reagendamento. Para mais detalhes, escreva para ola@escoladesi.com.br."];
+  const doubtParagraphs = splitParagraphs(page.textoDuvidas);
+  const finalDoubtParagraphs = doubtParagraphs.length > 0 ? doubtParagraphs : [];
 
   return (
     <main className="activity-page">
@@ -129,8 +133,8 @@ export default async function ActivityPageBySlug({ params }: ActivityRouteProps)
       <section className="activity-section" aria-label="Como é">
         <h2>_como é</h2>
         <div className="activity-copy-cards">
-          {page.comoE.map((item) => (
-            <article className="activity-copy-card" key={`${item.titulo}:${item.texto}`}>
+          {page.comoE.map((item, index) => (
+            <article className="activity-copy-card" key={`comoE_${index}`}>
               <h3>{item.titulo}</h3>
               <p>{item.texto}</p>
             </article>
@@ -141,15 +145,15 @@ export default async function ActivityPageBySlug({ params }: ActivityRouteProps)
       <section className="activity-section" aria-label="Ao longo da oficina, vamos">
         <h2>_ao longo da oficina, vamos</h2>
         <ul className="activity-list activity-card-list">
-          {page.aoLongoDaOficina.map((item) => <li key={item}>{item}</li>)}
+          {page.aoLongoDaOficina.map((item, index) => <li key={`aoLongo_${index}`}>{item}</li>)}
         </ul>
       </section>
 
       <section className="activity-section" aria-label="Por que essa oficina existe">
         <h2>_por que essa oficina existe</h2>
         <div className="activity-copy-cards">
-          {page.porQueEssaOficinaExiste.map((item) => (
-            <article className="activity-copy-card" key={`${item.titulo}:${item.texto}`}>
+          {page.porQueEssaOficinaExiste.map((item, index) => (
+            <article className="activity-copy-card" key={`porQue_${index}`}>
               <h3>{item.titulo}</h3>
               <p>{item.texto}</p>
             </article>
@@ -169,11 +173,11 @@ export default async function ActivityPageBySlug({ params }: ActivityRouteProps)
 
       <section className="activity-section" aria-label="Cancelamentos e reembolsos">
         <h2>_cancelamentos e reembolsos</h2>
-        {cancellationParagraphs.length > 0 ? (
+        {finalCancellationParagraphs.length > 0 ? (
           <details className="activity-disclosure">
             <summary>clique para ver política de cancelamento e reembolso</summary>
             <div className="activity-disclosure-body">
-              {cancellationParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {finalCancellationParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           </details>
         ) : null}
@@ -181,7 +185,7 @@ export default async function ActivityPageBySlug({ params }: ActivityRouteProps)
 
       <section className="activity-section" aria-label="Dúvidas">
         <h2>_tem dúvidas?</h2>
-        {doubtParagraphs.length > 0 ? doubtParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>) : null}
+        {finalDoubtParagraphs.length > 0 ? finalDoubtParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>) : null}
         <p>escreve pra <a href={`mailto:${contactEmail}`}>{contactEmail}</a> e seguimos :)</p>
       </section>
 

@@ -331,7 +331,7 @@ body { font-size: .92rem; }
 .team-swiper-shell { padding-bottom: 60px; position: relative; }
 .team-swiper { overflow: hidden; }
 .team-swiper-slide { height: auto; display: flex; }
-.team-card { height: 100%; min-height: 660px; }
+.team-card { height: 100%; min-height: 800px; }
 .team-swiper .swiper-slide, .team-swiper .swiper-wrapper { align-items: stretch; display: flex; }
 .team-swiper-arrows { inset: 0; pointer-events: none; position: absolute; z-index: 2; }
 .team-swiper-button-prev, .team-swiper-button-next { align-items: center; background: transparent; border: 1px solid var(--red); color: var(--red); cursor: pointer; display: flex; height: 44px; justify-content: center; padding: 0; transition: background-color 180ms ease, color 180ms ease; width: 44px; }

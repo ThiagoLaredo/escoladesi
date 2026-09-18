@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 type TeamLink = { type: 'instagram' | 'linkedin' | 'site'; url: string };
-type TeamMember = { name: string; role: string; image: string; links: TeamLink[] };
+type TeamMember = { name: string; role: string; image: string; bio?: string; links: TeamLink[] };
 
 interface TeamCarouselProps {
   team: TeamMember[];
@@ -54,18 +54,19 @@ export default function TeamCarousel({ team }: TeamCarouselProps) {
                 width={300}
                 priority={false}
               />
-              <div className="team-card-body">
+              <div className="team-card-body" style={{ minHeight: '300px' }}>
                 <h3>{member.name}</h3>
+                {member.bio && <p className="team-bio">{member.bio}</p>}
                 <p>{member.role}</p>
                 {member.links.length > 0 && (
                   <div className="team-links">
-                    {member.links.map((link) => {
+                    {member.links.map((link, index) => {
                       const Icon = teamLinkIcon[link.type];
                       return (
                         <a
                           aria-label={`${member.name} - ${link.type}`}
                           href={link.url}
-                          key={link.url}
+                          key={`${member.name}_${link.type}_${index}`}
                           rel="noopener noreferrer"
                           target="_blank"
                         >

@@ -4,6 +4,7 @@ export type ProgramColor = "blue" | "peach" | "yellow";
 
 export type Program = {
   name: string;
+  subtituloDoCard?: string;
   description: string;
   color: ProgramColor;
   href: string;
@@ -20,6 +21,16 @@ export type ActivityPerson = {
   bio?: string;
   linkedin?: string;
   instagram?: string;
+};
+
+export type TeamLink = { type: "instagram" | "linkedin" | "site"; url: string };
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+  bio?: string;
+  links: TeamLink[];
 };
 
 export type ActivityPage = {
@@ -69,7 +80,10 @@ type ContentfulPessoaFields = {
   foto?: ContentfulAsset;
   bio?: string;
   linkedin?: string;
+  linkedIn?: string;
   instagram?: string;
+  site?: string;
+  role?: string;
 };
 
 type ContentfulConteudoFields = {
@@ -87,12 +101,13 @@ type ContentfulPaginaDeAtividadeFields = {
   slug?: string;
   formato?: string;
   titulo?: string;
+  subtituloDoCard?: string;
   preco?: string;
   introducao?: string;
   imagemHero?: ContentfulAsset;
   imagemDoHero?: ContentfulAsset;
   linkInscricao?: string;
-  comQuem?: ContentfulEntry<ContentfulPessoaFields>;
+  comQuem?: ContentfulEntry<ContentfulPessoaFields> | ContentfulPessoaFields;
   datas?: string;
   horario?: string;
   horarios?: string;
@@ -139,6 +154,7 @@ export async function getPrograms(): Promise<Program[]> {
       const response = await contentfulClient.getEntries({
         content_type: contentTypeId,
         limit: 100,
+        include: 2,
       });
 
       const programsFromActivities = response.items.flatMap((item, index) => {
@@ -155,6 +171,7 @@ export async function getPrograms(): Promise<Program[]> {
           description: descriptionSource,
           href: `/${normalizeSlugValue(slug)}`,
           name: nome,
+          subtituloDoCard: fields.subtituloDoCard?.trim() || undefined,
         }];
       });
 
@@ -214,8 +231,8 @@ function normalizeContentCards(
   });
 }
 
-function normalizePerson(entry?: ContentfulEntry<ContentfulPessoaFields>): ActivityPerson | undefined {
-  const fields = entry?.fields;
+function normalizePerson(entry?: ContentfulEntry<ContentfulPessoaFields> | ContentfulPessoaFields): ActivityPerson | undefined {
+  const fields = entry && 'fields' in entry ? entry.fields : entry;
   if (!fields) return undefined;
 
   const nome = fields?.nome?.trim();
@@ -226,7 +243,7 @@ function normalizePerson(entry?: ContentfulEntry<ContentfulPessoaFields>): Activ
     fotoUrl: toAssetUrl(fields.foto),
     bio: fields.bio?.trim(),
     instagram: fields.instagram?.trim(),
-    linkedin: fields.linkedin?.trim(),
+    linkedin: (fields.linkedin || fields.linkedIn)?.trim(),
   };
 }
 
@@ -240,38 +257,6 @@ function normalizeSlugValue(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function mapActivityEntryToPage(fields: ContentfulPaginaDeAtividadeFields): ActivityPage | null {
-  const nomeDaPagina = (fields.nomeDaPagina ?? fields.nomeDaPgina)?.trim();
-  const slug = fields.slug?.trim();
-  const titulo = fields.titulo?.trim();
-  if (!nomeDaPagina || !slug || !titulo) return null;
-
-  return {
-    aoLongoDaOficina: normalizeList(fields.aoLongoDaOficina),
-    comQuem: normalizePerson(fields.comQuem),
-    comoE: normalizeContentCards(fields.comoE),
-    datas: fields.datas?.trim(),
-    emailContato: fields.emailContato?.trim(),
-    formato: fields.formato?.trim(),
-    imagemHeroUrl: toAssetUrl(fields.imagemHero ?? fields.imagemDoHero),
-    informacoesProgramacao: fields.informacoesProgramacao?.trim(),
-    introducao: fields.introducao?.trim(),
-    linkInscricao: fields.linkInscricao?.trim(),
-    nomeDaPagina,
-    oQueVoceLeva: normalizeList(fields.oQueVoceLeva),
-    politicaCancelamento: fields.politicaCancelamento?.trim(),
-    porQueEssaOficinaExiste: normalizeContentCards(fields.porQueEssaOficinaExiste),
-    praQuem: normalizeList(fields.praQuem),
-    preco: fields.preco?.trim(),
-    horario: (fields.horario ?? fields.horarios)?.trim(),
-    seoDescricao: fields.seoDescricao?.trim(),
-    seoTitulo: fields.seoTitulo?.trim(),
-    slug,
-    textoDuvidas: fields.textoDuvidas?.trim(),
-    titulo,
-  };
-}
-
 export async function getActivityPageBySlug(slug: string): Promise<ActivityPage | null> {
   if (!contentfulClient) return null;
 
@@ -281,23 +266,116 @@ export async function getActivityPageBySlug(slug: string): Promise<ActivityPage 
     try {
       const response = await contentfulClient.getEntries({
         content_type: contentTypeId,
-        include: 2,
         limit: 100,
+        include: 2,
       });
 
-      const matchedEntry = response.items.find((item) => {
-        const fields = item.fields as unknown as ContentfulPaginaDeAtividadeFields;
-        if (!fields?.slug) return false;
-        return normalizeSlugValue(fields.slug) === normalizedSlug;
-      }) as unknown as ContentfulEntry<ContentfulPaginaDeAtividadeFields> | undefined;
+      const page = response.items
+        .map((item) => mapActivityEntryToPage(item.fields as unknown as ContentfulPaginaDeAtividadeFields))
+        .find((entry) => entry !== null && normalizeSlugValue(entry.slug) === normalizedSlug);
 
-      if (!matchedEntry) continue;
-
-      return mapActivityEntryToPage(matchedEntry.fields);
+      if (page) return page;
     } catch {
       continue;
     }
   }
 
   return null;
+}
+
+export async function getAllActivityPages(): Promise<ActivityPage[]> {
+  if (!contentfulClient) return [];
+
+  const pages: ActivityPage[] = [];
+
+  for (const contentTypeId of activityContentTypeIds) {
+    try {
+      const response = await contentfulClient.getEntries({
+        content_type: contentTypeId,
+        limit: 100,
+        include: 2,
+      });
+
+      for (const item of response.items) {
+        const page = mapActivityEntryToPage(item.fields as unknown as ContentfulPaginaDeAtividadeFields);
+        if (page) pages.push(page);
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return pages;
+}
+
+function mapActivityEntryToPage(fields: ContentfulPaginaDeAtividadeFields): ActivityPage | null {
+  const nomeDaPagina = (fields.nomeDaPagina ?? fields.nomeDaPgina)?.trim();
+  const slug = fields.slug?.trim();
+  const titulo = fields.titulo?.trim();
+  if (!nomeDaPagina || !slug || !titulo) return null;
+
+  return {
+    nomeDaPagina,
+    slug,
+    formato: fields.formato?.trim(),
+    titulo,
+    preco: fields.preco?.trim(),
+    introducao: fields.introducao?.trim(),
+    imagemHeroUrl: toAssetUrl(fields.imagemHero ?? fields.imagemDoHero),
+    linkInscricao: fields.linkInscricao?.trim(),
+    comQuem: normalizePerson(fields.comQuem),
+    datas: fields.datas?.trim(),
+    horario: fields.horario ?? fields.horarios?.trim(),
+    informacoesProgramacao: fields.informacoesProgramacao?.trim(),
+    praQuem: normalizeList(fields.praQuem),
+    comoE: normalizeContentCards(fields.comoE),
+    aoLongoDaOficina: normalizeList(fields.aoLongoDaOficina),
+    porQueEssaOficinaExiste: normalizeContentCards(fields.porQueEssaOficinaExiste),
+    oQueVoceLeva: normalizeList(fields.oQueVoceLeva),
+    politicaCancelamento: fields.politicaCancelamento?.trim(),
+    textoDuvidas: fields.textoDuvidas?.trim(),
+    emailContato: fields.emailContato?.trim(),
+    seoTitulo: fields.seoTitulo?.trim(),
+    seoDescricao: fields.seoDescricao?.trim(),
+  };
+}
+
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  if (!contentfulClient) return [];
+
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: "pessoa",
+      limit: 100,
+      include: 1,
+      order: ['sys.createdAt'],
+    });
+
+    const teamMembers = response.items.flatMap((item) => {
+      const fields = item.fields as unknown as ContentfulPessoaFields;
+      const nome = fields.nome?.trim();
+      const role = fields.role?.trim();
+      const bio = fields.bio?.trim();
+      const imageUrl = toAssetUrl(fields.foto);
+
+      if (!nome || !imageUrl) return [];
+
+      const links: TeamLink[] = [];
+      if (fields.instagram) links.push({ type: "instagram", url: fields.instagram.trim() });
+      if (fields.linkedin || fields.linkedIn) links.push({ type: "linkedin", url: (fields.linkedin || fields.linkedIn)!.trim() });
+      if (fields.site) links.push({ type: "site", url: fields.site.trim() });
+
+      return [{
+        name: nome,
+        role: role || "",
+        image: imageUrl,
+        bio: bio || undefined,
+        links,
+      }];
+    });
+
+    return teamMembers;
+  } catch {
+    return [];
+  }
 }

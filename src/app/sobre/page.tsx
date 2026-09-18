@@ -6,104 +6,7 @@ import MobileMenu from "../mobile-menu";
 import SiteFooter from "../site-footer";
 import TimelineCarousel, { type TimelineItem } from "../timeline-carousel";
 import TeamCarousel from "../team-carousel";
-
-type TeamLink = { type: "instagram" | "linkedin" | "site"; url: string };
-type TeamMember = { name: string; role: string; image: string; links: TeamLink[] };
-
-const team: TeamMember[] = [
-  {
-    name: "fefe resende",
-    role: "trabalha com autoexpressão e construção de narrativas desde 2001, orientando a criação de interfaces de interação com o mundo a partir das escolhas de vestir. formou mais de 400 profissionais e publicou 4 livros pela companhia das letras.",
-    image: "/imagens/team/fefe resende.jpg",
-    links: [
-      { type: "instagram", url: "https://www.instagram.com/feferesende/" },
-      { type: "site", url: "https://feferesende.substack.com/" },
-      { type: "linkedin", url: "https://www.linkedin.com/in/feferesende/" },
-    ],
-  },
-  {
-    name: "paula leandro",
-    role: "participa da comunicação e do planejamento, e lidera a comunidade de nossa escola, a ante_sala.",
-    image: "/imagens/team/paula leandro.jpeg",
-    links: [{ type: "instagram", url: "https://www.instagram.com/vidadepaulinha_/" }],
-  },
-  {
-    name: "carol fajardo",
-    role: "guardiã da identidade visual da escola e também tá na comunicação, no planejamento e no cultivo de nossa comunidade.",
-    image: "/imagens/team/carol fajardo.jpeg",
-    links: [{ type: "instagram", url: "https://www.instagram.com/carolfajardo/" }],
-  },
-  {
-    name: "gabi miranda",
-    role: "projeto educacional",
-    image: "/imagens/team/gabi-miranda.jpeg",
-    links: [
-      { type: "instagram", url: "https://www.instagram.com/agabriellamiranda/" },
-      { type: "linkedin", url: "https://www.linkedin.com/in/agabriellamiranda/" },
-    ],
-  },
-  {
-    name: "débora malveira",
-    role: "financeiro",
-    image: "/imagens/team/debora malveira.jpeg",
-    links: [
-      { type: "instagram", url: "https://www.instagram.com/debora_malveira/" },
-      { type: "site", url: "https://olivafinancas.com.br/" },
-    ],
-  },
-  {
-    name: "bruna pereira",
-    role: "jurídico",
-    image: "/imagens/team/bruna.jpeg",
-    links: [{ type: "instagram", url: "https://www.instagram.com/brunabarbosap/" }],
-  },
-  {
-    name: "manu fernandes",
-    role: "estratégia de comunicação",
-    image: "/imagens/team/manu.jpeg",
-    links: [{ type: "instagram", url: "https://www.instagram.com/manu_fernds/" }],
-  },
-  {
-    name: "thayná julia",
-    role: "design de site + marcas",
-    image: "/imagens/team/thayná julia.png",
-    links: [
-      { type: "instagram", url: "https://www.instagram.com/wocria" },
-      { type: "site", url: "https://wocria.com.br/links" },
-      { type: "linkedin", url: "https://www.linkedin.com/in/thaynajulia/" },
-    ],
-  },
-  {
-    name: "marcia breda",
-    role: "marketing",
-    image: "/imagens/team/marcia.jpeg",
-    links: [
-      { type: "site", url: "https://marciabreda.com.br/" },
-      { type: "instagram", url: "https://www.instagram.com/marciabreda/" },
-    ],
-  },
-  {
-    name: "gabi pompílio",
-    role: "integrações e automações",
-    image: "/imagens/team/gabi-pompilio.jpg",
-    links: [{ type: "instagram", url: "https://www.instagram.com/gabipompilio/" }],
-  },
-  {
-    name: "day dias",
-    role: "planejamento estratégico",
-    image: "/imagens/team/day dias.jpeg",
-    links: [
-      { type: "instagram", url: "https://www.instagram.com/daydias.com.br/" },
-      { type: "linkedin", url: "https://www.linkedin.com/in/dayane-dias-94a2573b/" },
-    ],
-  },
-  {
-    name: "mari pelli",
-    role: "comunidade",
-    image: "/imagens/team/mari pelli.jpeg",
-    links: [{ type: "site", url: "https://maripelli.substack.com/" }],
-  },
-];
+import { getTeamMembers, type TeamMember, type TeamLink } from "../../lib/contentful";
 
 const timeline: TimelineItem[] = [
   { year: "2001", title: "o começo", text: "início do trabalho com autoexpressão e construção de narrativas através da moda." },
@@ -123,7 +26,9 @@ const timeline: TimelineItem[] = [
   { year: "2025", title: "escola de si", text: "idealização e construção da escola, com consolidação da metodologia como campo de pesquisa viva sobre comunicação, identidade e trabalho." },
 ];
 
-export default function SobrePage() {
+export default async function SobrePage() {
+  const team = await getTeamMembers();
+
   return (
     <main className="sobre-page">
       <header className="topbar">
