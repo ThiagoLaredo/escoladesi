@@ -186,10 +186,16 @@ const fallbackPrograms: Program[] = [
   { name: "escola\n_offline", description: "uma vivência que vira repertório e que pode sacudir nossas práticas de comunicação SIM!", color: "yellow", href: "#contato" },
 ];
 
-const contentfulClient = process.env.CONTENTFUL_SPACE_ID && process.env.CONTENTFUL_ACCESS_TOKEN
+const CONTENTFUL_SPACE_ID_KEY = "CONTENTFUL_SPACE_ID";
+const CONTENTFUL_ACCESS_TOKEN_KEY = "CONTENTFUL_ACCESS_TOKEN";
+
+const contentfulSpaceId = process.env[CONTENTFUL_SPACE_ID_KEY];
+const contentfulAccessToken = process.env[CONTENTFUL_ACCESS_TOKEN_KEY];
+
+const contentfulClient = contentfulSpaceId && contentfulAccessToken
   ? createClient({
-    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: contentfulAccessToken,
+    space: contentfulSpaceId,
   })
   : null;
 
