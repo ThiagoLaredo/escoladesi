@@ -33,6 +33,25 @@ export type TeamMember = {
   links: TeamLink[];
 };
 
+export type NewsArticle = {
+  slug: string;
+  title: string;
+  imageUrl?: string;
+  date: string;
+  description: string;
+  content: string;
+};
+
+export type Testimonial = {
+  quote: string;
+  author: string;
+};
+
+export type PartnerLogo = {
+  title: string;
+  url: string;
+};
+
 export type ActivityPage = {
   nomeDaPagina: string;
   slug: string;
@@ -66,6 +85,7 @@ type ContentfulProgramFields = {
 };
 
 type ContentfulAssetFields = {
+  title?: string;
   file?: {
     url?: string;
   };
@@ -93,6 +113,15 @@ type ContentfulConteudoFields = {
 
 type ContentfulEntry<TFields> = {
   fields: TFields;
+};
+
+type ContentfulSys = {
+  id: string;
+};
+
+type ContentfulEntryWithSys<TFields> = {
+  fields: TFields;
+  sys: ContentfulSys;
 };
 
 type ContentfulPaginaDeAtividadeFields = {
@@ -124,7 +153,31 @@ type ContentfulPaginaDeAtividadeFields = {
   seoDescricao?: string;
 };
 
+type ContentfulRichTextNode = {
+  content?: ContentfulRichTextNode[];
+  nodeType?: string;
+  value?: string;
+};
+
+type ContentfulNewsFields = {
+  data?: string;
+  imagemNews?: ContentfulAsset;
+  textoNews?: string | ContentfulRichTextNode;
+  tituloNews?: string;
+};
+
+type ContentfulTestimonialFields = {
+  nomeDepoimento?: string;
+  textoDepoimento?: string | ContentfulRichTextNode;
+};
+
+type ContentfulPartnerLogosFields = {
+  logosClientes?: ContentfulAsset[];
+};
+
 const activityContentTypeIds = ["paginaDeAtividade", "pginaDeAtividade"] as const;
+const newsContentTypeIds = ["news", "noticia", "noticias"] as const;
+const testimonialContentTypeIds = ["depoimento", "depoimentos", "testimonial", "testimonials"] as const;
 
 const fallbackPrograms: Program[] = [
   { name: "grupo\n_de estudo", description: "encontros mensais pra conhecer gente interessante e seus jeitos de organizar a vida, o trabalho e sua comunicação.", color: "blue", href: "/grupo-de-estudo" },
@@ -255,6 +308,227 @@ function normalizeSlugValue(value: string): string {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function collectRichTextValue(node?: ContentfulRichTextNode): string {
+  if (!node) return "";
+  if (typeof node.value === "string") return node.value;
+
+  return (node.content ?? []).map((child) => collectRichTextValue(child)).join("");
+}
+
+function normalizeLongText(value?: string | ContentfulRichTextNode): string {
+  if (!value) return "";
+  if (typeof value === "string") return value.trim();
+
+  const paragraphs = (value.content ?? [])
+    .map((node) => {
+      const text = collectRichTextValue(node).trim();
+      return text;
+    })
+    .filter(Boolean);
+
+  return paragraphs.join("\n\n");
+}
+
+function splitTextParagraphs(value?: string): string[] {
+  if (!value) return [];
+
+  return value
+    .split(/\r?\n\r?\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
+function buildNewsDescription(content: string): string {
+  const firstParagraph = splitTextParagraphs(content)[0] ?? content;
+  const compact = firstParagraph.replace(/\s+/g, " ").trim();
+  if (compact.length <= 180) return compact;
+  return `${compact.slice(0, 177).trimEnd()}...`;
+}
+
+function mapNewsEntry(
+  entry: ContentfulEntryWithSys<ContentfulNewsFields>,
+  usedSlugs: Set<string>,
+): NewsArticle | null {
+  const title = entry.fields.tituloNews?.trim();
+  const date = entry.fields.data?.trim();
+  const content = normalizeLongText(entry.fields.textoNews);
+  if (!title || !date || !content) return null;
+
+  const baseSlug = normalizeSlugValue(title);
+  if (!baseSlug) return null;
+
+  const slug = usedSlugs.has(baseSlug)
+    ? `${baseSlug}-${entry.sys.id.slice(-6).toLowerCase()}`
+    : baseSlug;
+
+  usedSlugs.add(slug);
+
+  return {
+    content,
+    date,
+    description: buildNewsDescription(content),
+    imageUrl: toAssetUrl(entry.fields.imagemNews),
+    slug,
+    title,
+  };
+}
+
+function sortNewsArticles(items: NewsArticle[]): NewsArticle[] {
+  return [...items].sort((left, right) => {
+    const leftTime = Number.isNaN(Date.parse(left.date)) ? 0 : Date.parse(left.date);
+    const rightTime = Number.isNaN(Date.parse(right.date)) ? 0 : Date.parse(right.date);
+    return rightTime - leftTime;
+  });
+}
+
+function mapTestimonialEntry(entry: ContentfulEntry<ContentfulTestimonialFields>): Testimonial | null {
+  const quote = normalizeLongText(entry.fields.textoDepoimento);
+  const author = entry.fields.nomeDepoimento?.trim();
+  if (!quote || !author) return null;
+
+  return { author, quote };
+}
+
+function mapPartnerLogosEntry(entry: ContentfulEntry<ContentfulPartnerLogosFields>): PartnerLogo[] {
+  const assets = entry.fields.logosClientes;
+  if (!assets || assets.length === 0) return [];
+
+  return assets.flatMap((asset, index) => {
+    const url = toAssetUrl(asset);
+    if (!url) return [];
+    const title = asset.fields?.title?.trim();
+
+    return [{
+      title: title || `logo cliente ${index + 1}`,
+      url,
+    }];
+  });
+}
+
+async function fetchNewsEntriesByContentType(contentTypeId: string): Promise<ContentfulEntryWithSys<ContentfulNewsFields>[]> {
+  if (!contentfulClient) return [];
+
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: contentTypeId,
+      include: 2,
+      limit: 100,
+    });
+
+    return response.items as Array<ContentfulEntryWithSys<ContentfulNewsFields>>;
+  } catch {
+    return [];
+  }
+}
+
+async function fetchFallbackNewsEntries(): Promise<ContentfulEntryWithSys<ContentfulNewsFields>[]> {
+  if (!contentfulClient) return [];
+
+  try {
+    const response = await contentfulClient.getEntries({
+      include: 2,
+      limit: 200,
+    });
+
+    return (response.items as Array<ContentfulEntryWithSys<ContentfulNewsFields>>).filter((item) => {
+      const fields = item.fields;
+      return Boolean(fields?.tituloNews && fields?.textoNews && fields?.data);
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getNewsArticles(): Promise<NewsArticle[]> {
+  if (!contentfulClient) return [];
+
+  const usedSlugs = new Set<string>();
+
+  for (const contentTypeId of newsContentTypeIds) {
+    const entries = await fetchNewsEntriesByContentType(contentTypeId);
+    if (entries.length === 0) continue;
+
+    const items = entries
+      .map((entry) => mapNewsEntry(entry, usedSlugs))
+      .filter((entry): entry is NewsArticle => entry !== null);
+
+    if (items.length > 0) return sortNewsArticles(items);
+  }
+
+  const fallbackEntries = await fetchFallbackNewsEntries();
+  return sortNewsArticles(
+    fallbackEntries
+      .map((entry) => mapNewsEntry(entry, usedSlugs))
+      .filter((entry): entry is NewsArticle => entry !== null),
+  );
+}
+
+export async function getNewsArticleBySlug(slug: string): Promise<NewsArticle | null> {
+  const items = await getNewsArticles();
+  return items.find((item) => item.slug === slug) ?? null;
+}
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  if (!contentfulClient) return [];
+
+  for (const contentTypeId of testimonialContentTypeIds) {
+    try {
+      const response = await contentfulClient.getEntries({
+        content_type: contentTypeId,
+        include: 2,
+        limit: 100,
+      });
+
+      const testimonials = response.items
+        .map((item) => mapTestimonialEntry(item as ContentfulEntry<ContentfulTestimonialFields>))
+        .filter((item): item is Testimonial => item !== null);
+
+      if (testimonials.length > 0) return testimonials;
+    } catch {
+      continue;
+    }
+  }
+
+  try {
+    const response = await contentfulClient.getEntries({
+      include: 2,
+      limit: 200,
+    });
+
+    const testimonials = response.items
+      .filter((item) => {
+        const fields = item.fields as ContentfulTestimonialFields;
+        return Boolean(fields?.textoDepoimento && fields?.nomeDepoimento);
+      })
+      .map((item) => mapTestimonialEntry(item as ContentfulEntry<ContentfulTestimonialFields>))
+      .filter((item): item is Testimonial => item !== null);
+
+    return testimonials;
+  } catch {
+    return [];
+  }
+}
+
+export async function getPartnerLogos(): Promise<PartnerLogo[]> {
+  if (!contentfulClient) return [];
+
+  try {
+    const response = await contentfulClient.getEntries({
+      include: 2,
+      limit: 200,
+    });
+
+    for (const item of response.items) {
+      const logos = mapPartnerLogosEntry(item as ContentfulEntry<ContentfulPartnerLogosFields>);
+      if (logos.length > 0) return logos;
+    }
+
+    return [];
+  } catch {
+    return [];
+  }
 }
 
 export async function getActivityPageBySlug(slug: string): Promise<ActivityPage | null> {

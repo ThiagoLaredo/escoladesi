@@ -6,7 +6,7 @@ import HeroRotatingPhrase from "./hero-rotating-phrase";
 import MobileMenu from "./mobile-menu";
 import ProgramsCarousel from "./programs-carousel";
 import SiteFooter from "./site-footer";
-import { getPrograms } from "../lib/contentful";
+import { getPartnerLogos, getPrograms, getTestimonials } from "../lib/contentful";
 
 const schoolLinks = [
   ["aulas & oficinas", "técnicas e questionamentos pra transformar reflexão em prática e sair com ideias testadas, com a sua cara", "#agenda"],
@@ -19,6 +19,8 @@ const schoolLinks = [
 
 export default async function Home() {
   const programs = await getPrograms();
+  const testimonials = await getTestimonials();
+  const partnerLogos = await getPartnerLogos();
 
   return (
     <main>
@@ -27,7 +29,7 @@ export default async function Home() {
           <Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} priority />
         </Link>
         <nav aria-label="Navegacao principal">
-          <Link href="/" aria-current="page">home</Link><Link href="/sobre">sobre</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><a href="#novidades">news</a>
+          <Link href="/" aria-current="page">home</Link><Link href="/sobre">sobre</Link><a href="#agenda">agenda</a><a href="#pesquisa">pesquisa</a><Link href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><Link href="/news">news</Link>
         </nav>
         <a className="menu-link" href="#contato">contato</a>
         <MobileMenu />
@@ -70,7 +72,7 @@ no processo e também em como
   <img className="method-diagram" src="/diagrama-metodologia.svg" alt="Diagrama da metodologia da Escoladesi" />
       </section>
 
-      <AccordionSections />
+      <AccordionSections partnerLogos={partnerLogos} testimonials={testimonials} />
 
       <section className="escola-fix" aria-labelledby="escola-fix-title">
         <div className="escola-fix-frame"><h2 id="escola-fix-title">escola_f ix</h2></div>

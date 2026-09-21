@@ -2,8 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "../mobile-menu";
 import SiteFooter from "../site-footer";
+import { getPartnerLogos, getTestimonials } from "../../lib/contentful";
 
-export default function SobMedidaPage() {
+export default async function SobMedidaPage() {
+  const partnerLogos = await getPartnerLogos();
+  const testimonials = await getTestimonials();
+
   return (
     <main className="sob-medida-page">
       <header className="topbar">
@@ -11,7 +15,7 @@ export default function SobMedidaPage() {
           <Image src="/logo-escola-de-si-1.png" alt="Escoladesi" width={872} height={148} priority />
         </Link>
         <nav aria-label="Navegação principal">
-          <Link href="/">home</Link><Link href="/sobre">sobre</Link><Link href="/#agenda">agenda</Link><Link href="/#pesquisa">pesquisa</Link><Link aria-current="page" href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><Link href="/#novidades">news</Link>
+          <Link href="/">home</Link><Link href="/sobre">sobre</Link><Link href="/#agenda">agenda</Link><Link href="/#pesquisa">pesquisa</Link><Link aria-current="page" href="/sob-medida">sob medida</Link><Link href="/metodologia">metodologia</Link><Link href="/news">news</Link>
         </nav>
         <Link className="menu-link" href="/#contato">contato</Link>
         <MobileMenu activeLabel="sob medida" />
@@ -41,22 +45,35 @@ export default function SobMedidaPage() {
           </ul>
         </div>
       </section>
-      <section className="sob-medida-proof" aria-label="Experiência e depoimentos">
-        <div className="sob-medida-proof-section">
-          <h2>com quem já trabalhamos</h2>
-          <div className="partner-logos" aria-label="Empresas parceiras">
-            {['tarzi', 'mira', 'aura', 'nativa', 'norte', 'modo'].map((partner) => <span key={partner}>{partner}</span>)}
-          </div>
-        </div>
-        <div className="sob-medida-proof-section">
-          <h2>depoimentos</h2>
-          <div className="sob-medida-testimonials">
-            <figure><blockquote>“encontrei um jeito mais verdadeiro de apresentar meu trabalho e minhas ideias.”</blockquote><figcaption>participante da escola</figcaption></figure>
-            <figure><blockquote>“foi um processo potente para reconhecer minha trajetória e transformá-la em comunicação.”</blockquote><figcaption>participante da escola</figcaption></figure>
-            <figure><blockquote>“saí com mais clareza, repertório e vontade de seguir falando de mim no meu próprio ritmo.”</blockquote><figcaption>participante da escola</figcaption></figure>
-          </div>
-        </div>
-      </section>
+      {partnerLogos.length > 0 || testimonials.length > 0 ? (
+        <section className="sob-medida-proof" aria-label="Experiência e depoimentos">
+          {partnerLogos.length > 0 ? (
+            <div className="sob-medida-proof-section">
+              <h2>com quem já trabalhamos</h2>
+              <div className="partner-logos" aria-label="Empresas parceiras">
+                {partnerLogos.map((partnerLogo) => (
+                  <span key={partnerLogo.url}>
+                    <img alt={partnerLogo.title} loading="lazy" src={partnerLogo.url} />
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {testimonials.length > 0 ? (
+            <div className="sob-medida-proof-section">
+              <h2>depoimentos</h2>
+              <div className="sob-medida-testimonials">
+                {testimonials.map((testimonial) => (
+                  <figure key={`${testimonial.author}-${testimonial.quote.slice(0, 32)}`}>
+                    <blockquote>“{testimonial.quote}”</blockquote>
+                    <figcaption>{testimonial.author}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
       <section className="sob-medida-cta" aria-label="Contato sob medida">
         <h2>somos muito boas de criar junto!</h2>
         <h2>vamos conversar sobre as versões corporativas desses programas?</h2>
