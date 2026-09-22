@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Image from 'next/image';
@@ -17,6 +18,30 @@ interface TeamCarouselProps {
 }
 
 const teamLinkIcon = { instagram: FaInstagram, linkedin: FaLinkedinIn, site: Globe };
+const COLLAPSED_BIO_WORDS = 14;
+
+function TeamBio({ bio }: { bio: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const words = bio.trim().split(/\s+/);
+  const shouldCollapse = words.length > COLLAPSED_BIO_WORDS;
+  const preview = shouldCollapse ? `${words.slice(0, COLLAPSED_BIO_WORDS).join(' ')}...` : bio;
+
+  return (
+    <div className="team-bio-wrap">
+      <p className="team-bio">{expanded || !shouldCollapse ? bio : preview}</p>
+      {shouldCollapse && (
+        <button
+          aria-expanded={expanded}
+          className="team-bio-toggle"
+          onClick={() => setExpanded((value) => !value)}
+          type="button"
+        >
+          {expanded ? 'ler menos' : 'ler mais'}
+        </button>
+      )}
+    </div>
+  );
+}
 
 export default function TeamCarousel({ team }: TeamCarouselProps) {
   return (
@@ -54,10 +79,10 @@ export default function TeamCarousel({ team }: TeamCarouselProps) {
                 width={300}
                 priority={false}
               />
-              <div className="team-card-body" style={{ minHeight: '300px' }}>
+              <div className="team-card-body">
                 <h3>{member.name}</h3>
-                {member.bio && <p className="team-bio">{member.bio}</p>}
-                <p>{member.role}</p>
+                {member.bio && <TeamBio bio={member.bio} />}
+                <p className="team-role">{member.role}</p>
                 {member.links.length > 0 && (
                   <div className="team-links">
                     {member.links.map((link, index) => {

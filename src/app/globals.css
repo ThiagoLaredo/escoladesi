@@ -289,6 +289,12 @@ body { font-size: .92rem; }
 .sobre-card, .sobre-card.blue, .sobre-card.peach, .sobre-card.yellow { border: 0; border-color: transparent; }
 .sobre-card, .sobre-card.blue, .sobre-card.peach, .sobre-card.yellow { background: white; }
 .team-gallery { padding-top: 110px; }
+.team-bio-wrap { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.team-card .team-bio { margin: 0; }
+.team-bio-toggle { align-self: flex-start; background: transparent; border: 0; color: var(--red); cursor: pointer; font-size: .75rem; font-weight: 900; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
+.team-bio-toggle:hover { color: var(--blue); }
+.team-card .team-role { margin: 0 0 auto; }
+.team-card-body { min-height: 240px; }
 .topbar { border-bottom-width: 1px; border-top-width: 1px; }
 .topbar nav a, .menu-link { border-left-width: 1px; }
 .menu-link { border-right-width: 1px; }
@@ -314,6 +320,7 @@ body { font-size: .92rem; }
 	.manifesto h2, .school-nav > h2, .method h2, .escola-fix-frame h2 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
 	.team-gallery h2, .trajectory h2 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
 	.team-gallery { padding-top: 56px; }
+	.team-card-body { min-height: 210px; }
 	.seasonal-banner { gap: 16px; min-height: 42vh; padding: 24px 24px; }
 	.sobre-hero, .team-gallery, .trajectory, .seasonal-banner { padding-bottom: 48px; padding-top: 48px; }
 	.trajectory { padding-top: 0; }
@@ -332,7 +339,7 @@ body { font-size: .92rem; }
 .team-swiper-shell { padding-bottom: 60px; position: relative; }
 .team-swiper { overflow: hidden; }
 .team-swiper-slide { height: auto; display: flex; }
-.team-card { height: 100%; min-height: 800px; }
+.team-card { height: auto; min-height: 0; }
 .team-swiper .swiper-slide, .team-swiper .swiper-wrapper { align-items: stretch; display: flex; }
 .team-swiper-arrows { inset: 0; pointer-events: none; position: absolute; z-index: 2; }
 .team-swiper-button-prev, .team-swiper-button-next { align-items: center; background: transparent; border: 1px solid var(--red); color: var(--red); cursor: pointer; display: flex; height: 44px; justify-content: center; padding: 0; transition: background-color 180ms ease, color 180ms ease; width: 44px; }
@@ -369,9 +376,6 @@ body { font-size: .92rem; }
 	}
 }
 
-@media (min-width: 761px) {
-	.team-card { height: 560px; }
-}
 .school-nav .school-nav-card { align-items: stretch; border: 1px solid var(--line); color: #090909; font-size: inherit; justify-content: initial; min-height: 168px; padding: 22px 24px 20px; }
 @media (max-width: 760px) {
 	.school-nav-grid { display: block; }
