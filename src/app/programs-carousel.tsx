@@ -36,7 +36,11 @@ export default function ProgramsCarousel({ programs }: { programs: Program[] }) 
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {programs.map(({ name, subtituloDoCard, color, href }) => <article className={`program-card ${color}`} key={name}><h2>{name.split("\n").map((line) => <span key={line}>{line}</span>)}</h2>{subtituloDoCard ? <p className="program-card-subtitle">{subtituloDoCard}</p> : null}<a href={href}>saiba mais</a></article>)}
+        {programs.map(({ name, subtituloDoCard, atividadesData, comNome, formato, description, color, href }) => {
+          const fallbackText = subtituloDoCard || description;
+
+          return <article className={`program-card ${color}`} key={name}><div className="program-card-head">{atividadesData ? <span className="program-card-date-badge">{atividadesData}</span> : null}</div><h2>{name.split("\n").map((line) => <span key={line}>{line}</span>)}</h2>{comNome || formato ? <p className="program-card-subtitle">{comNome ? <>_com {comNome}<br /></> : null}{formato ? <>_{formato}</> : null}</p> : fallbackText ? <p className="program-card-subtitle">{fallbackText}</p> : null}<a href={href}>saiba mais</a></article>;
+        })}
       </div>
       <div className="program-controls" aria-label="Navegação dos programas">
         <button aria-label="Programa anterior" className="program-arrow" onClick={previousProgram}><ChevronLeft aria-hidden="true" strokeWidth={1.5} /></button>

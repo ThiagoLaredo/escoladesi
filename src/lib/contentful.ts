@@ -5,6 +5,9 @@ export type ProgramColor = "blue" | "peach" | "yellow";
 export type Program = {
   name: string;
   subtituloDoCard?: string;
+  atividadesData?: string;
+  comNome?: string;
+  formato?: string;
   description: string;
   color: ProgramColor;
   href: string;
@@ -62,7 +65,7 @@ export type ActivityPage = {
   imagemHeroUrl?: string;
   linkInscricao?: string;
   comQuem?: ActivityPerson;
-  datas?: string;
+  atividadesData?: string;
   horario?: string;
   informacoesProgramacao?: string;
   praQuem: string[];
@@ -77,11 +80,22 @@ export type ActivityPage = {
   seoDescricao?: string;
 };
 
+export type FreePage = {
+  slug: string;
+  titulo: string;
+  imagemHeroUrl?: string;
+  conteudo: string | ContentfulRichTextNode;
+  conteudoTexto: string;
+  seoTitulo?: string;
+  seoDescricao?: string;
+};
+
 type ContentfulProgramFields = {
   name?: string;
   description?: string;
   color?: ProgramColor;
   href?: string;
+  atividadesData?: string;
 };
 
 type ContentfulAssetFields = {
@@ -131,6 +145,8 @@ type ContentfulPaginaDeAtividadeFields = {
   formato?: string;
   titulo?: string;
   subtituloDoCard?: string;
+  atividadesData?: string;
+  como?: string;
   preco?: string;
   introducao?: string;
   imagemHero?: ContentfulAsset;
@@ -153,8 +169,23 @@ type ContentfulPaginaDeAtividadeFields = {
   seoDescricao?: string;
 };
 
-type ContentfulRichTextNode = {
+export type ContentfulRichTextMark = {
+  type?: string;
+};
+
+type ContentfulRichTextNodeDataTarget = {
+  fields?: ContentfulAssetFields;
+};
+
+type ContentfulRichTextNodeData = {
+  uri?: string;
+  target?: ContentfulRichTextNodeDataTarget;
+};
+
+export type ContentfulRichTextNode = {
   content?: ContentfulRichTextNode[];
+  data?: ContentfulRichTextNodeData;
+  marks?: ContentfulRichTextMark[];
   nodeType?: string;
   value?: string;
 };
@@ -173,6 +204,15 @@ type ContentfulTestimonialFields = {
 
 type ContentfulPartnerLogosFields = {
   logosClientes?: ContentfulAsset[];
+};
+
+type ContentfulPaginaLivreFields = {
+  slug?: string;
+  titulo?: string;
+  imagemHero?: ContentfulAsset;
+  conteudo?: string | ContentfulRichTextNode;
+  seoTitulo?: string;
+  seoDescricao?: string;
 };
 
 const activityContentTypeIds = ["paginaDeAtividade", "pginaDeAtividade"] as const;
@@ -205,6 +245,29 @@ function pickProgramColor(index: number): ProgramColor {
   return programColors[index % programColors.length];
 }
 
+function formatMonthYearBadge(value?: string): string | undefined {
+  const trimmedValue = value?.trim();
+  if (!trimmedValue) return undefined;
+
+  const dateOnlyMatch = trimmedValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const parsedDate = dateOnlyMatch
+    ? new Date(Number(dateOnlyMatch[1]), Number(dateOnlyMatch[2]) - 1, Number(dateOnlyMatch[3]))
+    : new Date(trimmedValue);
+
+  if (Number.isNaN(parsedDate.getTime())) return trimmedValue;
+
+  const dayMonth = new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+  }).format(parsedDate);
+
+  const weekday = new Intl.DateTimeFormat("pt-BR", {
+    weekday: "long",
+  }).format(parsedDate).toLowerCase();
+
+  return `${dayMonth}, ${weekday}`;
+}
+
 export async function getPrograms(): Promise<Program[]> {
   if (!contentfulClient) return fallbackPrograms;
 
@@ -225,11 +288,17 @@ export async function getPrograms(): Promise<Program[]> {
         const descriptionSource = fields.introducao?.trim() || fields.informacoesProgramacao?.trim();
         if (!descriptionSource) return [];
 
+        const comNome = normalizePerson(fields.comQuem)?.nome;
+        const formato = fields.formato?.trim();
+
         return [{
           color: pickProgramColor(index),
           description: descriptionSource,
           href: `/${normalizeSlugValue(slug)}`,
           name: nome,
+          atividadesData: formatMonthYearBadge(fields.atividadesData),
+          comNome,
+          formato,
           subtituloDoCard: fields.subtituloDoCard?.trim() || undefined,
         }];
       });
@@ -251,6 +320,7 @@ export async function getPrograms(): Promise<Program[]> {
         description: fields.description,
         href: fields.href,
         name: fields.name,
+        atividadesData: formatMonthYearBadge(fields.atividadesData),
       }];
     });
 
@@ -413,6 +483,25 @@ function mapPartnerLogosEntry(entry: ContentfulEntry<ContentfulPartnerLogosField
   });
 }
 
+function mapFreePageEntry(fields: ContentfulPaginaLivreFields): FreePage | null {
+  const slug = fields.slug?.trim();
+  const titulo = fields.titulo?.trim();
+  const conteudo = fields.conteudo;
+  const conteudoTexto = normalizeLongText(fields.conteudo);
+
+  if (!slug || !titulo || !conteudoTexto) return null;
+
+  return {
+    slug,
+    titulo,
+    imagemHeroUrl: toAssetUrl(fields.imagemHero),
+    conteudo: conteudo ?? conteudoTexto,
+    conteudoTexto,
+    seoTitulo: fields.seoTitulo?.trim(),
+    seoDescricao: fields.seoDescricao?.trim(),
+  };
+}
+
 async function fetchNewsEntriesByContentType(contentTypeId: string): Promise<ContentfulEntryWithSys<ContentfulNewsFields>[]> {
   if (!contentfulClient) return [];
 
@@ -563,6 +652,46 @@ export async function getActivityPageBySlug(slug: string): Promise<ActivityPage 
   return null;
 }
 
+export async function getFreePageBySlug(slug: string): Promise<FreePage | null> {
+  if (!contentfulClient) return null;
+
+  const normalizedSlug = normalizeSlugValue(slug);
+
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: "paginaLivre",
+      limit: 100,
+      include: 2,
+    });
+
+    const page = response.items
+      .map((item) => mapFreePageEntry(item.fields as unknown as ContentfulPaginaLivreFields))
+      .find((entry) => entry !== null && normalizeSlugValue(entry.slug) === normalizedSlug);
+
+    return page ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getAllFreePages(): Promise<FreePage[]> {
+  if (!contentfulClient) return [];
+
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: "paginaLivre",
+      limit: 100,
+      include: 2,
+    });
+
+    return response.items
+      .map((item) => mapFreePageEntry(item.fields as unknown as ContentfulPaginaLivreFields))
+      .filter((entry): entry is FreePage => entry !== null);
+  } catch {
+    return [];
+  }
+}
+
 export async function getAllActivityPages(): Promise<ActivityPage[]> {
   if (!contentfulClient) return [];
 
@@ -604,7 +733,7 @@ function mapActivityEntryToPage(fields: ContentfulPaginaDeAtividadeFields): Acti
     imagemHeroUrl: toAssetUrl(fields.imagemHero ?? fields.imagemDoHero),
     linkInscricao: fields.linkInscricao?.trim(),
     comQuem: normalizePerson(fields.comQuem),
-    datas: fields.datas?.trim(),
+    atividadesData: formatMonthYearBadge(fields.atividadesData),
     horario: fields.horario ?? fields.horarios?.trim(),
     informacoesProgramacao: fields.informacoesProgramacao?.trim(),
     praQuem: normalizeList(fields.praQuem),
