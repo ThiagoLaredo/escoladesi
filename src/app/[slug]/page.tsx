@@ -120,6 +120,9 @@ function ActivityPageView({ page }: { page: ActivityPage }) {
   const introParagraphs = splitParagraphs(page.introducao);
   const programInfoParagraphs = splitParagraphs(page.informacoesProgramacao);
   const contactEmail = page.emailContato?.trim() || "ola@escoladesi.com.br";
+  const registrationHref = page.linkInscricao?.trim() || `mailto:${contactEmail}`;
+  const registrationTarget = page.linkInscricao ? "_blank" : undefined;
+  const registrationRel = page.linkInscricao ? "noopener noreferrer" : undefined;
   const cancellationParagraphs = splitParagraphs(page.politicaCancelamento);
   const finalCancellationParagraphs = cancellationParagraphs.length > 0
     ? cancellationParagraphs
@@ -149,9 +152,7 @@ function ActivityPageView({ page }: { page: ActivityPage }) {
         {introParagraphs.length > 0 ? introParagraphs.map((paragraph) => (
           <p className="activity-intro" key={paragraph}>{paragraph}</p>
         )) : null}
-        {page.linkInscricao ? (
-          <a className="activity-cta" href={page.linkInscricao} rel="noopener noreferrer" target="_blank">quero participar</a>
-        ) : null}
+        <a className="activity-cta activity-cta-intro" href={registrationHref} rel={registrationRel} target={registrationTarget}>quero participar</a>
       </section>
 
       <div className="activity-feature-grid">
@@ -188,9 +189,7 @@ function ActivityPageView({ page }: { page: ActivityPage }) {
           {page.horario ? <p>{page.horario}</p> : null}
           {page.formato ? <p>{page.formato}</p> : null}
           {programInfoParagraphs.length > 0 ? programInfoParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>) : null}
-          {page.linkInscricao ? (
-            <a className="activity-cta" href={page.linkInscricao} rel="noopener noreferrer" target="_blank">quero participar</a>
-          ) : null}
+          <a className="activity-cta activity-cta-schedule" href={registrationHref} rel={registrationRel} target={registrationTarget}>quero participar</a>
         </section>
       </div>
 
@@ -237,9 +236,6 @@ function ActivityPageView({ page }: { page: ActivityPage }) {
         <ul className="activity-list activity-card-list">
           {page.oQueVoceLeva.map((item) => <li key={item}>{item}</li>)}
         </ul>
-        {page.linkInscricao ? (
-          <a className="activity-cta" href={page.linkInscricao} rel="noopener noreferrer" target="_blank">quero participar</a>
-        ) : null}
       </section>
 
       <section className="activity-section" aria-label="Cancelamentos e reembolsos">

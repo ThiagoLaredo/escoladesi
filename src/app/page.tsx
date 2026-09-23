@@ -68,7 +68,7 @@ export default async function Home() {
 própria história com
 autenticidade, se reconhecendo
 no processo e também em como
-      se apresenta pro mundo..</strong></p><a href="#contato">saiba mais</a></div>
+      se apresenta pro mundo.</strong></p><a href="./metodologia">saiba mais</a></div>
   <img className="method-diagram" src="/diagrama-metodologia.svg" alt="Diagrama da metodologia da Escoladesi" />
       </section>
 
